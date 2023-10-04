@@ -5,8 +5,12 @@ export const AppContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+`;
+
+export const Header = styled.div`
+  height: 4vh;
+  display: flex;
+  gap: 16px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 2vh 0px;
 `;

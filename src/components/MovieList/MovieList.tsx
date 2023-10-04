@@ -1,13 +1,19 @@
 import React from "react";
-import MovieItem from "../MovieItem/MovieItem";
+import MovieItem, { MovieType } from "../MovieItem/MovieItem";
 import { MovieListContainer } from "./MovieList-style";
 
-function MovieList({ movies, onToggleFavorite, favorites }: any) {
+export interface MovieItemProps {
+  movies: MovieType[];
+  favorites: MovieType[];
+  onToggleFavorite: (movie: MovieType) => void;
+}
+
+const MovieList = ({ movies, onToggleFavorite, favorites }: MovieItemProps) => {
   return (
     <MovieListContainer>
-      {movies.map((movie: any) => {
+      {movies.map((movie: MovieType) => {
         const isFavorite = favorites.some(
-          (favMovie: any) => favMovie.title === movie.title
+          (favMovie: MovieType) => favMovie.title === movie.title
         );
         return (
           <MovieItem
@@ -20,6 +26,6 @@ function MovieList({ movies, onToggleFavorite, favorites }: any) {
       })}
     </MovieListContainer>
   );
-}
+};
 
 export default MovieList;

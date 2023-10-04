@@ -1,11 +1,13 @@
 import React from "react";
+import { StyledButton } from "./Button-style";
 
-function Button({ label, onClick }: any) {
-  return (
-    <button onClick={onClick} className="button">
-      {label}
-    </button>
-  );
+export interface ButtonProps {
+  label: string;
+  onClick: () => void;
 }
+
+const Button = ({ label, onClick }: ButtonProps) => {
+  return <StyledButton onClick={onClick}>{label}</StyledButton>;
+};
 
 export default Button;

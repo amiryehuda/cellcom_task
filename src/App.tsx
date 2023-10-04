@@ -3,65 +3,77 @@ import axios from "axios";
 import apiKey from "./config";
 import Button from "./components/Button/Button";
 import MovieList from "./components/MovieList/MovieList";
+import { MovieType } from "./components/MovieItem/MovieItem";
+import { AppContainer, Header } from "./App-style";
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-  const [activeTab, setActiveTab] = useState("popular"); // Default active tab
+  const [movies, setMovies] = useState<MovieType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<MovieType[]>([]);
+  const [activeTab, setActiveTab] = useState<string>("popular");
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
 
-      try {
-        let response;
+      const cachedData = localStorage.getItem(activeTab);
 
-        if (activeTab === "popular") {
-          response = await axios.get(
-            `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
-          );
-        } else if (activeTab === "currently_broadcast") {
-          response = await axios.get(
-            `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`
-          );
+      if (cachedData) {
+        setMovies(JSON.parse(cachedData));
+        setLoading(false);
+      } else {
+        try {
+          let response;
+
+          if (activeTab === "popular") {
+            response = await axios.get(
+              `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
+            );
+          } else if (activeTab === "currently_broadcast") {
+            response = await axios.get(
+              `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`
+            );
+          }
+          response &&
+            localStorage.setItem(
+              activeTab,
+              JSON.stringify(response.data.results)
+            );
+
+          response && setMovies(response.data.results);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setLoading(false);
         }
-
-        response && setMovies(response.data.results);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
       }
     };
 
     fetchData();
   }, [activeTab]);
 
-  const handleTabChange = (tab: any) => {
+  const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
 
-  const handleToggleFavorite = (movie: any) => {
+  const handleToggleFavorite = (movie: MovieType) => {
     const isFavorite = favorites.some(
-      (favMovie: any) => favMovie.title === movie.title
+      (favMovie: MovieType) => favMovie.title === movie.title
     );
 
     if (isFavorite) {
-      // Remove the movie from favorites
       const updatedFavorites = favorites.filter(
-        (favMovie: any) => favMovie.title !== movie.title
+        (favMovie: MovieType) => favMovie.title !== movie.title
       );
       setFavorites(updatedFavorites);
     } else {
-      // Add the movie to favorites
-      setFavorites([...favorites, movie] as any);
+      setFavorites([...favorites, movie]);
     }
   };
 
   return (
-    <div className="App">
-      <div className="buttons-container">
+    <AppContainer>
+      <Header>
         <Button label="Popular" onClick={() => handleTabChange("popular")} />
         <Button
           label="Currently Broadcast"
@@ -71,7 +83,7 @@ function App() {
           label="Favorites"
           onClick={() => handleTabChange("favorites")}
         />
-      </div>
+      </Header>
 
       {loading ? (
         <p>Loading...</p>
@@ -82,7 +94,7 @@ function App() {
           favorites={favorites}
         />
       )}
-    </div>
+    </AppContainer>
   );
 }
 
