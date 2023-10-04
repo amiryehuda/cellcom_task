@@ -22,9 +22,7 @@ const MovieItem = ({ movie, onToggleFavorite, isFavorite }: MovieItemProps) => {
         alt={movie.title}
       />
       <MovieTitle>{movie.title}</MovieTitle>
-      {onToggleFavorite && (
-        <Button onClick={onToggleFavorite} label={buttonText} />
-      )}
+      <Button onClick={onToggleFavorite} label={buttonText} />
     </MovieItemContainer>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import MovieItem, { MovieType } from "../MovieItem/MovieItem";
-import { MovieListContainer } from "./MovieList-style";
+import { EmptyListMessage, MovieListContainer } from "./MovieList-style";
 
 export interface MovieItemProps {
   movies: MovieType[];
@@ -11,6 +11,9 @@ export interface MovieItemProps {
 const MovieList = ({ movies, onToggleFavorite, favorites }: MovieItemProps) => {
   return (
     <MovieListContainer>
+      {movies.length === 0 && (
+        <EmptyListMessage>Favorite movies list is empty</EmptyListMessage>
+      )}
       {movies.map((movie: MovieType) => {
         const isFavorite = favorites.some(
           (favMovie: MovieType) => favMovie.title === movie.title

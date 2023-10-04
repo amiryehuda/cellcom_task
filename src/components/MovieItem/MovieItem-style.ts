@@ -6,7 +6,6 @@ export const MovieItemContainer = styled.div`
   border-radius: 4px;
   padding: 10px;
   margin: 0 10px 20px;
-  max-width: 300px;
 `;
 
 export const MovieImage = styled.img`

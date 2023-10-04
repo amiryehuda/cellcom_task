@@ -1,3 +1,3 @@
-const apiKey = "2c46288716a18fb7aadcc2a801f3fc6b";
+export const apiKey = "2c46288716a18fb7aadcc2a801f3fc6b";
 
-export default apiKey;
+export const BASE_URL = `https://api.themoviedb.org/3/movie`;
