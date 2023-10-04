@@ -28,7 +28,6 @@ const HomePage = () => {
       setLoading(true);
 
       const cachedData = localStorage.getItem(currentPath);
-      console.log(cachedData);
 
       if (cachedData && cachedData !== "undefined") {
         setMovies(JSON.parse(cachedData));
