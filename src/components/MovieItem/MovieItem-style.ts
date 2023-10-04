@@ -8,10 +8,13 @@ export const MovieItemContainer = styled.div`
   margin: 0 10px 20px;
   max-width: 12vw;
   min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 
 export const MovieImage = styled.img`
-  width: 100%;
+  min-width: 100%;
 `;
 
 export const MovieTitle = styled.h3`

@@ -11,16 +11,13 @@ const App = () => {
     <AppContainer>
       <Header>
         <Button label="Popular" onClick={() => navigate("popular")} />
-        <Button
-          label="Currently Broadcast"
-          onClick={() => navigate("currently_broadcast")}
-        />
+        <Button label="Now Playing" onClick={() => navigate("now_playing")} />
         <Button label="Favorites" onClick={() => navigate("favorites")} />
       </Header>
       <Routes>
         <Route path="/" element={<Navigate replace to="/popular" />} />
         <Route path="/popular" element={<HomePage />} />
-        <Route path="/currently_broadcast" element={<HomePage />} />
+        <Route path="/now_playing" element={<HomePage />} />
         <Route path="/favorites" element={<HomePage />} />
       </Routes>
     </AppContainer>

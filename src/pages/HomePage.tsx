@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 enum MovieTypes {
   POPULAR = "popular",
-  CURRENTLY_BROADCAST = "currently_broadcast",
+  NOW_PLAING = "now_playing",
   FAVORITES = "favorites",
 }
 
@@ -20,7 +20,7 @@ const HomePage = () => {
   const [favorites, setFavorites] = useState<MovieType[]>([]);
 
   const getMovies = async (
-    movieType: MovieTypes.POPULAR | MovieTypes.CURRENTLY_BROADCAST
+    movieType: MovieTypes.POPULAR | MovieTypes.NOW_PLAING
   ) => axios.get(`${BASE_URL}/${movieType}?api_key=${apiKey}`);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const HomePage = () => {
 
           if (currentPath !== MovieTypes.FAVORITES) {
             response = await getMovies(
-              currentPath as MovieTypes.POPULAR | MovieTypes.CURRENTLY_BROADCAST
+              currentPath as MovieTypes.POPULAR | MovieTypes.NOW_PLAING
             );
           }
 

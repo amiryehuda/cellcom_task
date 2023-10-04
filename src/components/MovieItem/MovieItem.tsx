@@ -17,11 +17,13 @@ const MovieItem = ({ movie, onToggleFavorite, isFavorite }: MovieItemProps) => {
 
   return (
     <MovieItemContainer>
-      <MovieImage
-        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-        alt={movie.title}
-      />
-      <MovieTitle>{movie.title}</MovieTitle>
+      <>
+        <MovieImage
+          src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+          alt={movie.title}
+        />
+        <MovieTitle>{movie.title}</MovieTitle>
+      </>
       <Button onClick={onToggleFavorite} label={buttonText} />
     </MovieItemContainer>
   );
